@@ -1,36 +1,46 @@
-{
-  "manifest_version": 3,
-  "name": "Langfuse 中文翻译",
-  "version": "0.1.0",
-  "description": "为 Langfuse 界面提供中文翻译",
-  "permissions": ["storage"],
-  "action": { "default_title": "Langfuse 翻译" },
-  "options_page": "src/options.html",
-  "background": { "service_worker": "src/background.js" },
-  "icons": {
-    "16": "assets/icons/icon16.svg",
-    "48": "assets/icons/icon48.svg",
-    "128": "assets/icons/icon128.svg"
-  },
-  "web_accessible_resources": [
-    {
-      "resources": [
-        "src/i18n.js",
-        "translations/*.json",
-        "translations/*.js"
-      ],
-      "matches": ["<all_urls>"]
-    }
-  ],
-  "content_scripts": [
-    {
-      "matches": [
-        "http://192.168.101.16:3000/*",
-        "https://192.168.101.16:3000/*",
-        "*://*/project/*"
-      ],
-      "js": ["src/content.js"],
-      "run_at": "document_idle"
-    }
-  ]
+﻿{
+    "manifest_version":  3,
+    "name":  "Langfuse 涓枃缈昏瘧",
+    "version":  "0.1.0",
+    "description":  "涓?Langfuse 鐣岄潰鎻愪緵涓枃缈昏瘧",
+    "permissions":  [
+                        "storage"
+                    ],
+    "action":  {
+                   "default_title":  "Langfuse 缈昏瘧"
+               },
+    "options_page":  "src/options.html",
+    "background":  {
+                       "service_worker":  "src/background.js"
+                   },
+    "icons":  {
+                  "16":  "assets/icons/icon16.png",
+                  "128":  "assets/icons/icon128.png",
+                  "48":  "assets/icons/icon48.png"
+              },
+    "web_accessible_resources":  [
+                                     {
+                                         "resources":  [
+                                                           "src/i18n.js",
+                                                           "translations/*.json",
+                                                           "translations/*.js"
+                                                       ],
+                                         "matches":  [
+                                                         "\u003call_urls\u003e"
+                                                     ]
+                                     }
+                                 ],
+    "content_scripts":  [
+                            {
+                                "matches":  [
+                                                "http://192.168.101.16:3000/*",
+                                                "https://192.168.101.16:3000/*",
+                                                "*://*/project/*"
+                                            ],
+                                "js":  [
+                                           "src/content.js"
+                                       ],
+                                "run_at":  "document_idle"
+                            }
+                        ]
 }
