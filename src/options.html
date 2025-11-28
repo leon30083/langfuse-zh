@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Langfuse 翻译设置</title>
+  <style>
+    body { font-family: system-ui, sans-serif; padding: 16px; }
+    label { display: block; margin: 8px 0; }
+    textarea { width: 100%; height: 200px; }
+    button { margin-right: 8px; }
+  </style>
+</head>
+<body>
+  <h1>Langfuse 翻译设置</h1>
+  <label>
+    <input type="checkbox" id="enabled" /> 启用翻译
+  </label>
+  <label>
+    域名白名单（逗号分隔）
+    <input type="text" id="hosts" placeholder="例如 192.168.101.16:3000" />
+  </label>
+  <h2>词典管理</h2>
+  <div>
+    <button id="exportBtn">导出词典</button>
+    <button id="importBtn">导入词典</button>
+    <input type="file" id="fileInput" accept="application/json" style="display:none" />
+  </div>
+  <script src="options.js"></script>
+</body>
+</html>
