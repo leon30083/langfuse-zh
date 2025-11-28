@@ -1,0 +1,45 @@
+name: Chrome Web Store Upload
+
+on:
+  workflow_dispatch:
+  release:
+    types: [published]
+
+jobs:
+  upload:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Get version from manifest
+        id: ver
+        run: echo "version=$(node -p "require('./manifest.json').version")" >> $GITHUB_OUTPUT
+
+      - name: Install CLI
+        run: npm i -g chrome-webstore-upload-cli
+
+      - name: Package extension
+        run: |
+          mkdir -p dist
+          zip -r dist/langfuse-zh-${{ steps.ver.outputs.version }}.zip manifest.json src translations assets
+
+      - name: Upload to Chrome Web Store
+        env:
+          EXTENSION_ID: ${{ secrets.CWS_EXTENSION_ID }}
+          CLIENT_ID: ${{ secrets.CWS_CLIENT_ID }}
+          CLIENT_SECRET: ${{ secrets.CWS_CLIENT_SECRET }}
+          REFRESH_TOKEN: ${{ secrets.CWS_REFRESH_TOKEN }}
+        run: |
+          chrome-webstore-upload upload \
+            --extension-id "$EXTENSION_ID" \
+            --client-id "$CLIENT_ID" \
+            --client-secret "$CLIENT_SECRET" \
+            --refresh-token "$REFRESH_TOKEN" \
+            --source dist/langfuse-zh-${{ steps.ver.outputs.version }}.zip \
+            --publish true
